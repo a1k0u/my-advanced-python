@@ -9,4 +9,4 @@ RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install numpy
 RUN python3 -m pip install Pillow
 RUN python3 -m pip install image-generator-alkosenko
-CMD [ "python3", "pdf_generator.py" ]
+CMD [ "python3", "/the/workdir/path/pdf_generator.py" ]

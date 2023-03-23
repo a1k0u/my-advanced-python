@@ -1,3 +1,12 @@
-docker build . -t pdf
+PyPi -> [https://pypi.org/project/image-generator-alkosenko/](https://pypi.org/project/image-generator-alkosenko/)
 
-e=`docker run --rm -d pdf}` && docker cp $e:/my_generated_pdf_file.pdf . && docker stop $e
+
+```shell
+docker build . -t pdf_alkosenko
+```
+
+- To get generated pdf
+  
+```shell
+e=`docker run --rm -d pdf_alkosenko` && docker cp $e:/tmp/my_generated_pdf_file.pdf . && docker stop $e
+```

@@ -34,7 +34,7 @@ def fib(n: int) -> Optional[int]:
     return f2
 
 
-def run_objects_with_timer(objects: list[Union[Thread, Process]]) -> float:
+def run_objects_with_timer(objects: list[Union[Thread, Process, MyFunc]]) -> float:
     time_start = time()
 
     [object.start() for object in objects]

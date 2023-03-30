@@ -24,7 +24,9 @@ async def get_new_image(path: str):
 
 
 async def main(path: str, amount: int):
-    await asyncio.wait(map(get_new_image, [f"{path}/{n}.jpg" for n in range(amount)]))
+    await asyncio.wait(
+        [asyncio.create_task(get_new_image(f"{path}/{n}.jpg")) for n in range(amount)]
+    )
 
 
 if __name__ == "__main__":

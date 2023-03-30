@@ -64,7 +64,7 @@ if __name__ == "__main__":
     with open("time_complecity.txt", "w") as file:
         column_of_nums = "\n\t".join([str(x) for x in random_numbers])
         
-        print(f"fib_values: [\n\t{column_of_nums}\n]", file=file)
-        print(f"threads_time={threads_time}", file=file)
-        print(f"processed_time={processed_time}", file=file)
-        print(f"synchronized={synchronized}", file=file)
+        print(f"fib_n: [\n\t{column_of_nums}\n]", file=file)
+        print(f"threads_time={threads_time} sec", file=file)
+        print(f"processed_time={processed_time} sec", file=file)
+        print(f"synchronized={synchronized} sec", file=file)

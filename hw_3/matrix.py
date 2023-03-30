@@ -2,14 +2,20 @@ from typing import Iterable
 from typing import Callable
 
 
-class Matrix:
+class MatrixHashMixin:
+    def __hash__(self):
+        # Sum of the elements
+        return sum([sum(row) for row in self.matrix])
+
+
+class Matrix(MatrixHashMixin):
     def __init__(self, matrix: Iterable[Iterable]) -> None:
         assert isinstance(matrix, Iterable)
         assert len(matrix)
         assert all([isinstance(row, Iterable) for row in matrix])
         assert len({len(row) for row in matrix}) == 1
 
-        self.__matrix = matrix
+        self.matrix = matrix
         self.__rows = len(matrix)
         self.__columns = len(matrix[0])
 
@@ -39,7 +45,7 @@ class Matrix:
         result = [[0 for _ in range(self.__columns)] for _ in range(self.__rows)]
         for i in range(self.__rows):
             for j in range(self.__columns):
-                result[i][j] = operation(self.__matrix[i][j], other.__matrix[i][j])
+                result[i][j] = operation(self.matrix[i][j], other.matrix[i][j])
         return Matrix(result)
 
     def __radd__(self, other):
@@ -72,20 +78,17 @@ class Matrix:
             for j in range(other.__columns):
                 result[i][j] = sum(
                     [
-                        self.__matrix[i][k] * other.__matrix[k][j]
+                        self.matrix[i][k] * other.matrix[k][j]
                         for k in range(self.__columns)
                     ]
                 )
         return Matrix(result)
 
     def __str__(self) -> str:
-        return self.__matrix.__str__()
+        return self.matrix.__str__()
 
     def __repr__(self) -> str:
         return self.__str__()
-
-    def __hash__(self):
-        return sum([sum(row) for row in self.__matrix])
 
 
 if __name__ == "__main__":
@@ -113,6 +116,10 @@ if __name__ == "__main__":
     B = D = Matrix([[1, 0], [0, 1]])
     C = Matrix([[9, 4], [2, 2]])
 
+    write_artifacts(A, "artifacts/hard/A.txt")
+    write_artifacts(B, "artifacts/hard/B.txt")
+    write_artifacts(C, "artifacts/hard/C.txt")
+    write_artifacts(D, "artifacts/hard/D.txt")
     write_artifacts(A @ B, "artifacts/hard/AB.txt")
     write_artifacts(C @ D, "artifacts/hard/CD.txt")
     write_artifacts(f"{hash(A @ B)}\n{hash(C @ D)}", "artifacts/hard/hash.txt")
